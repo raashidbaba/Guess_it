@@ -17,7 +17,7 @@
         android:name="com.example.guessit.screens.GameFragment"
         android:label="GameFragment" >
         <action
-            android:id="@+id/action_gameFragment_to_scoreFragment2"
+            android:id="@+id/action_game_to_score"
             app:destination="@id/scoreFragment2" />
     </fragment>
     <fragment
@@ -25,7 +25,12 @@
         android:name="com.example.guessit.score.ScoreFragment"
         android:label="ScoreFragment" >
         <action
-            android:id="@+id/action_scoreFragment2_to_gameFragment"
-            app:destination="@id/gameFragment" />
+            android:id="@+id/action_game_to_score"
+            app:destination="@id/gameFragment"
+            app:popUpTo="@id/titleFragment" />
+        <argument
+            android:name="score"
+            android:defaultValue="0"
+            app:argType="integer" />
     </fragment>
 </navigation>
