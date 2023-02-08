@@ -25,6 +25,6 @@ class ScoreFragment :Fragment(){
         return binding.root
     }
     private fun onPlayAgain() {
-        findNavController().navigate(ScoreFragmentDirections.actionGameToScore())
+        findNavController().navigate(ScoreFragmentDirections.actionRestart())
     }
 }

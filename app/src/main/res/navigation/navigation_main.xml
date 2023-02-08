@@ -25,7 +25,7 @@
         android:name="com.example.guessit.score.ScoreFragment"
         android:label="ScoreFragment" >
         <action
-            android:id="@+id/action_game_to_score"
+            android:id="@+id/action_restart"
             app:destination="@id/gameFragment"
             app:popUpTo="@id/titleFragment" />
         <argument

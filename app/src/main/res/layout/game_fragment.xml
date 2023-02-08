@@ -76,7 +76,7 @@
             app:layout_constraintStart_toStartOf="parent"
             tools:text="Score: 2" />
 
-        <Button
+        <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/skip_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -96,7 +96,7 @@
             android:orientation="horizontal"
             app:layout_constraintGuide_end="96dp" />
 
-        <Button
+        <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/correct_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
