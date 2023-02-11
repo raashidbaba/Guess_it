@@ -1,33 +1,35 @@
 package com.example.guessit.screens
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.fragment.findNavController
 import com.example.guessit.R
 import com.example.guessit.databinding.GameFragmentBinding
 
 class GameFragment : Fragment() {
 
-    // The current word
     private var word = ""
-
-    // The current score
     private var score = 0
 
     // The list of words - the front of the list is the next word to guess
     private lateinit var wordList: MutableList<String>
 
     private lateinit var binding: GameFragmentBinding
+    private lateinit var viewModel: GameViewModel
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         val binding = DataBindingUtil.inflate<GameFragmentBinding>(inflater, R.layout.game_fragment,container,false)
+        Log.i("GameFragment","ViewModelProviders")
+        viewModel = ViewModelProviders.of(this).get(GameViewModel::class.java)
         resetList()
         nextWord()
 
