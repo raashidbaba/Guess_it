@@ -1,11 +1,12 @@
 package com.example.guessit.screens
 
 import android.util.Log
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 
 class GameViewModel : ViewModel() {
-     var word = ""
-     var score = 0
+    var word = ""
+    var score = MutableLiveData<Int>()
 
     // The list of words - the front of the list is the next word to guess
     private lateinit var wordList: MutableList<String>
@@ -13,6 +14,7 @@ class GameViewModel : ViewModel() {
 
 
     init {
+        score.value = 0
         resetList()
         nextWord()
         Log.i("GameModel","GameViewModel created")
@@ -67,12 +69,12 @@ class GameViewModel : ViewModel() {
     /** Methods for buttons presses **/
 
      fun onSkip() {
-        score--
+        score.value = (score.value)?.minus(1)
         nextWord()
     }
 
      fun onCorrect() {
-        score++
+        score.value = (score.value)?.plus(1)
         nextWord()
     }
 }

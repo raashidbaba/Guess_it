@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.fragment.findNavController
 import com.example.guessit.R
@@ -26,17 +27,22 @@ class GameFragment : Fragment() {
         viewModel = ViewModelProviders.of(this).get(GameViewModel::class.java)
 
 
-        binding.correctButton.setOnClickListener { viewModel.onCorrect()
-            updateScoreText()
+        binding.correctButton.setOnClickListener {
+            viewModel.onCorrect()
+            //  updateScoreText()
             updateWordText()
         }
-        binding.skipButton.setOnClickListener { viewModel.onSkip()
-            updateScoreText()
+        binding.skipButton.setOnClickListener {
+            viewModel.onSkip()
+            //  updateScoreText()
             updateWordText()
         }
-        updateScoreText()
-        updateWordText()
+        //   updateScoreText()
 
+        viewModel.score.observe(viewLifecycleOwner, Observer { newScore ->
+            binding.scoreText.text = newScore.toString()
+        })
+        updateWordText()
         return binding.root
     }
 
@@ -45,7 +51,7 @@ class GameFragment : Fragment() {
      */
     private fun gameFinished() {
         val action = GameFragmentDirections.actionGameToScore()
-        action.setScore(viewModel.score)
+        action.setScore(viewModel.score.value ?: 0)
         findNavController().navigate(action)
     }
 
@@ -59,7 +65,4 @@ class GameFragment : Fragment() {
 
     }
 
-    private fun updateScoreText() {
-        binding.scoreText.text = viewModel.score.toString()
-    }
 }
