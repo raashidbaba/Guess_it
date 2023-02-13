@@ -44,7 +44,7 @@
             android:textSize="34sp"
             android:textStyle="normal" />
 
-        <Button
+        <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/play_game_button"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
