@@ -49,11 +49,12 @@ class GameViewModel : ViewModel() {
         timer = object : CountDownTimer(COUNTDOWN_TIME, ONE_SECOND) {
 
             override fun onTick(millisUntilFinished: Long) {
-                // TODO implement what should happen each tick of the timer
+            _currentTime.value = (millisUntilFinished / ONE_SECOND)
             }
 
             override fun onFinish() {
-                // TODO implement what should happen when the timer finishes
+                _currentTime.value = DONE
+                _eventGameFinish.value=true
             }
         }
 
@@ -62,7 +63,8 @@ class GameViewModel : ViewModel() {
 
     override fun onCleared() {
         super.onCleared()
-        Log.i("GameModel","destroyed")
+        timer.cancel()
+        Log.i("GameModel", "destroyed")
     }
     /**
      * Resets the list of words and randomizes the order
@@ -107,6 +109,8 @@ class GameViewModel : ViewModel() {
             _word.value = wordList.removeAt(0)
 
     }
+
+
     /** Methods for buttons presses **/
 
      fun onSkip() {
