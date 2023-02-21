@@ -1,11 +1,22 @@
 package com.example.guessit.screens
 
+import android.os.CountDownTimer
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 
 class GameViewModel : ViewModel() {
+    companion object {
+        // These represent different important times
+        // This is when the game is over
+        const val DONE = 0L
+        // This is the number of milliseconds in a second
+        const val ONE_SECOND = 1000L
+        // This is the total time of the game
+        const val COUNTDOWN_TIME = 60000L
+    }
+    private val timer:CountDownTimer
     private val _word = MutableLiveData<String>()
     val word : LiveData<String>
     get() = _word
@@ -22,6 +33,11 @@ class GameViewModel : ViewModel() {
     get() = _eventGameFinish
 
 
+    private val _currentTime = MutableLiveData<Long>()
+    val currentTime : LiveData<Long>
+    get() = _currentTime
+
+
     init {
         _eventGameFinish.value = false
         _score.value = 0
@@ -29,6 +45,19 @@ class GameViewModel : ViewModel() {
         resetList()
         nextWord()
         Log.i("GameModel","GameViewModel created")
+
+        timer = object : CountDownTimer(COUNTDOWN_TIME, ONE_SECOND) {
+
+            override fun onTick(millisUntilFinished: Long) {
+                // TODO implement what should happen each tick of the timer
+            }
+
+            override fun onFinish() {
+                // TODO implement what should happen when the timer finishes
+            }
+        }
+
+        timer.start()
     }
 
     override fun onCleared() {
@@ -71,11 +100,11 @@ class GameViewModel : ViewModel() {
      fun nextWord() {
         //Select and remove a word from the list
         if (wordList.isEmpty()) {
-            _eventGameFinish.value = true
+            resetList()
+           // _eventGameFinish.value = true
             //gameFinished()
-        } else {
-            _word.value = wordList.removeAt(0)
         }
+            _word.value = wordList.removeAt(0)
 
     }
     /** Methods for buttons presses **/
